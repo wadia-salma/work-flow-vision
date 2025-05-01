@@ -29,7 +29,7 @@ import { Plus, Users, UserPlus } from "lucide-react";
 import { Employee, Team } from "@/types";
 
 const Teams: React.FC = () => {
-  const { teams, employees, addEmployee } = useApp();
+  const { teams, employees, addEmployee, addTeam } = useApp();
   const { currentUser } = useAuth();
   
   // Only admins can access this page
@@ -38,12 +38,17 @@ const Teams: React.FC = () => {
   }
   
   const [isNewEmployeeOpen, setIsNewEmployeeOpen] = useState(false);
+  const [isNewTeamOpen, setIsNewTeamOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
   const [newEmployee, setNewEmployee] = useState<Omit<Employee, "id">>({
     name: "",
     email: "",
     role: "",
     teamId: "",
+  });
+  const [newTeam, setNewTeam] = useState<Omit<Team, "id">>({
+    name: "",
+    employeeIds: [],
   });
   
   const handleAddEmployee = () => {
@@ -64,6 +69,22 @@ const Teams: React.FC = () => {
     setIsNewEmployeeOpen(false);
   };
   
+  const handleAddTeam = () => {
+    if (!newTeam.name) {
+      toast.error("Please enter a team name");
+      return;
+    }
+    
+    addTeam(newTeam);
+    
+    setNewTeam({
+      name: "",
+      employeeIds: [],
+    });
+    
+    setIsNewTeamOpen(false);
+  };
+  
   const openNewEmployeeDialog = (team: Team) => {
     setSelectedTeam(team);
     setNewEmployee(prev => ({ ...prev, teamId: team.id }));
@@ -74,6 +95,38 @@ const Teams: React.FC = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Teams</h1>
+        
+        <Dialog open={isNewTeamOpen} onOpenChange={setIsNewTeamOpen}>
+          <DialogTrigger asChild>
+            <Button className="flex items-center gap-1">
+              <Plus className="h-4 w-4" />
+              <span>Create Team</span>
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create New Team</DialogTitle>
+              <DialogDescription>
+                Add a new team to your organization
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="teamName">Team Name</Label>
+                <Input 
+                  id="teamName" 
+                  placeholder="Enter team name"
+                  value={newTeam.name}
+                  onChange={(e) => setNewTeam(prev => ({ ...prev, name: e.target.value }))}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsNewTeamOpen(false)}>Cancel</Button>
+              <Button onClick={handleAddTeam}>Create Team</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
         
         <Dialog open={isNewEmployeeOpen} onOpenChange={setIsNewEmployeeOpen}>
           <DialogContent>

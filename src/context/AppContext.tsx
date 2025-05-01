@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { AppState, Project, Task, Employee, Team, TaskStatus } from "../types";
 import { mockProjects, mockTasks, mockEmployees, mockTeams } from "../mockData";
@@ -15,6 +14,8 @@ interface AppContextType extends AppState {
   updateProject: (projectId: string, updates: Partial<Project>) => void;
   deleteProject: (projectId: string) => void;
 
+  addTeam: (team: Omit<Team, "id">) => void;
+  
   addEmployee: (employee: Omit<Employee, "id">) => void;
   updateEmployee: (employeeId: string, updates: Partial<Employee>) => void;
   deleteEmployee: (employeeId: string) => void;
@@ -165,6 +166,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
   };
 
+  // Team operations
+  const addTeam = (team: Omit<Team, "id">) => {
+    const newTeam: Team = {
+      ...team,
+      id: generateId(),
+      employeeIds: team.employeeIds || [],
+    };
+    
+    setTeams(prev => [...prev, newTeam]);
+    
+    toast({
+      title: "Team Created",
+      description: `Team "${newTeam.name}" has been created.`
+    });
+  };
+
   // Employee operations
   const addEmployee = (employee: Omit<Employee, "id">) => {
     const newEmployee: Employee = {
@@ -289,6 +306,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addProject,
         updateProject,
         deleteProject,
+        addTeam,
         addEmployee,
         updateEmployee,
         deleteEmployee,
