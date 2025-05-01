@@ -2,11 +2,7 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 
-interface RouteGuardProps {
-  requireAdmin?: boolean;
-}
-
-const RouteGuard: React.FC<RouteGuardProps> = ({ requireAdmin = false }) => {
+const RouteGuard = ({ requireAdmin = false }) => {
   const { currentUser, isAuthenticated, isLoading } = useAuth();
   
   // While checking authentication status, show nothing

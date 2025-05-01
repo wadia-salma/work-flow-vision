@@ -5,11 +5,7 @@ import AppHeader from "./AppHeader";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useAuth } from "@/context/AuthContext";
 
-interface AppLayoutProps {
-  children: React.ReactNode;
-}
-
-const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
+const AppLayout = ({ children }) => {
   const { currentUser } = useAuth();
   
   if (!currentUser) {

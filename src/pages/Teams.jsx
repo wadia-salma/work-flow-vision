@@ -26,9 +26,8 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { Plus, Users, UserPlus } from "lucide-react";
-import { Employee, Team } from "@/types";
 
-const Teams: React.FC = () => {
+const Teams = () => {
   const { teams, employees, addEmployee, addTeam } = useApp();
   const { currentUser } = useAuth();
   
@@ -39,14 +38,14 @@ const Teams: React.FC = () => {
   
   const [isNewEmployeeOpen, setIsNewEmployeeOpen] = useState(false);
   const [isNewTeamOpen, setIsNewTeamOpen] = useState(false);
-  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
-  const [newEmployee, setNewEmployee] = useState<Omit<Employee, "id">>({
+  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [newEmployee, setNewEmployee] = useState({
     name: "",
     email: "",
     role: "",
     teamId: "",
   });
-  const [newTeam, setNewTeam] = useState<Omit<Team, "id">>({
+  const [newTeam, setNewTeam] = useState({
     name: "",
     employeeIds: [],
   });
@@ -85,7 +84,7 @@ const Teams: React.FC = () => {
     setIsNewTeamOpen(false);
   };
   
-  const openNewEmployeeDialog = (team: Team) => {
+  const openNewEmployeeDialog = (team) => {
     setSelectedTeam(team);
     setNewEmployee(prev => ({ ...prev, teamId: team.id }));
     setIsNewEmployeeOpen(true);
