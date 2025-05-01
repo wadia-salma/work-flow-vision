@@ -8,12 +8,27 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log("AuthProvider initializing");
+
   useEffect(() => {
+    console.log("AuthProvider useEffect running");
     // Check for saved user in localStorage
     const savedUser = localStorage.getItem("currentUser");
+    
     if (savedUser) {
-      setCurrentUser(JSON.parse(savedUser));
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        console.log("Found saved user:", parsedUser);
+        setCurrentUser(parsedUser);
+      } catch (error) {
+        console.error("Error parsing saved user:", error);
+        localStorage.removeItem("currentUser");
+      }
+    } else {
+      console.log("No saved user found");
     }
+    
+    // Always set loading to false after checking local storage
     setIsLoading(false);
   }, []);
 
@@ -24,14 +39,18 @@ export const AuthProvider = ({ children }) => {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 800));
       
+      console.log("Login attempt for:", email);
+      
       // Mock authentication
       const user = mockUsers.find(u => u.email === email);
       
       if (user && password === "password") { // Simple mock password check
+        console.log("Login successful for:", user);
         setCurrentUser(user);
         localStorage.setItem("currentUser", JSON.stringify(user));
         return true;
       }
+      console.log("Login failed");
       return false;
     } finally {
       setIsLoading(false);
@@ -39,20 +58,27 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    console.log("Logging out");
     setCurrentUser(null);
     localStorage.removeItem("currentUser");
   };
 
+  const authContextValue = {
+    currentUser, 
+    login, 
+    logout, 
+    isAuthenticated: !!currentUser,
+    isLoading
+  };
+
+  console.log("Auth context current state:", { 
+    isAuthenticated: !!currentUser, 
+    isLoading, 
+    hasUser: !!currentUser 
+  });
+
   return (
-    <AuthContext.Provider 
-      value={{ 
-        currentUser, 
-        login, 
-        logout, 
-        isAuthenticated: !!currentUser,
-        isLoading 
-      }}
-    >
+    <AuthContext.Provider value={authContextValue}>
       {children}
     </AuthContext.Provider>
   );
