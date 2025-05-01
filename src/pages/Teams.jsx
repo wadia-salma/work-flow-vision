@@ -89,6 +89,10 @@ const Teams = () => {
     setNewEmployee(prev => ({ ...prev, teamId: team.id }));
     setIsNewEmployeeOpen(true);
   };
+
+  // Ensure we have arrays to safely map over
+  const safeTeams = Array.isArray(teams) ? teams : [];
+  const safeEmployees = Array.isArray(employees) ? employees : [];
   
   return (
     <div className="space-y-6">
@@ -173,7 +177,7 @@ const Teams = () => {
                   onChange={(e) => setNewEmployee(prev => ({ ...prev, teamId: e.target.value }))}
                 >
                   <option value="">Select a team</option>
-                  {teams.map(team => (
+                  {safeTeams.map(team => (
                     <option key={team.id} value={team.id}>{team.name}</option>
                   ))}
                 </select>
@@ -188,8 +192,8 @@ const Teams = () => {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {teams.map(team => {
-          const teamEmployees = employees.filter(employee => employee.teamId === team.id);
+        {safeTeams.map(team => {
+          const teamEmployees = safeEmployees.filter(employee => employee.teamId === team.id);
           
           return (
             <Card key={team.id}>

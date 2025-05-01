@@ -18,10 +18,10 @@ export const AppProvider = ({ children }) => {
   
   // Initialize with mock data
   useEffect(() => {
-    setProjects(mockProjects);
-    setTasks(mockTasks);
-    setEmployees(mockEmployees);
-    setTeams(mockTeams);
+    setProjects(mockProjects || []);
+    setTasks(mockTasks || []);
+    setEmployees(mockEmployees || []);
+    setTeams(mockTeams || []);
   }, []);
   
   // Project CRUD operations
@@ -146,7 +146,7 @@ export const AppProvider = ({ children }) => {
         setTeams(prev => 
           prev.map(team => 
             team.id === employee.teamId
-              ? { ...team, employeeIds: team.employeeIds.filter(id => id !== employeeId) }
+              ? { ...team, employeeIds: (team.employeeIds || []).filter(id => id !== employeeId) }
               : team
           )
         );
@@ -191,7 +191,7 @@ export const AppProvider = ({ children }) => {
       setTeams(prev => 
         prev.map(team => 
           team.id === employeeToDelete.teamId
-            ? { ...team, employeeIds: team.employeeIds.filter(id => id !== employeeId) }
+            ? { ...team, employeeIds: (team.employeeIds || []).filter(id => id !== employeeId) }
             : team
         )
       );
@@ -266,7 +266,7 @@ export const AppProvider = ({ children }) => {
         setProjects(prev => 
           prev.map(project => 
             project.id === task.projectId
-              ? { ...project, taskIds: project.taskIds.filter(id => id !== taskId) }
+              ? { ...project, taskIds: (project.taskIds || []).filter(id => id !== taskId) }
               : project
           )
         );
@@ -311,7 +311,7 @@ export const AppProvider = ({ children }) => {
       setProjects(prev => 
         prev.map(project => 
           project.id === taskToDelete.projectId
-            ? { ...project, taskIds: project.taskIds.filter(id => id !== taskId) }
+            ? { ...project, taskIds: (project.taskIds || []).filter(id => id !== taskId) }
             : project
         )
       );
