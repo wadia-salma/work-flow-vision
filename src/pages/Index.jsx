@@ -7,7 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 const Index = () => {
   const { isAuthenticated, isLoading } = useAuth();
   
-  // While checking authentication status, show nothing
+  // While checking authentication status, show loading
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -16,7 +16,10 @@ const Index = () => {
     );
   }
   
-  return isAuthenticated ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />;
+  // Safely redirect based on authentication status
+  return isAuthenticated ? 
+    <Navigate to="/dashboard" replace /> : 
+    <Navigate to="/login" replace />;
 };
 
 export default Index;

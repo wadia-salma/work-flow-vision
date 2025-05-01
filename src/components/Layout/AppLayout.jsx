@@ -6,9 +6,10 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { useAuth } from "@/context/AuthContext";
 
 const AppLayout = ({ children }) => {
-  const { currentUser } = useAuth();
+  const { currentUser, isLoading } = useAuth();
   
-  if (!currentUser) {
+  // If auth is still loading or no user, just render children without layout
+  if (isLoading || !currentUser) {
     return <>{children}</>;
   }
 

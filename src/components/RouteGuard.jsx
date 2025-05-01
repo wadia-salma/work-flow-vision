@@ -5,7 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 const RouteGuard = ({ requireAdmin = false }) => {
   const { currentUser, isAuthenticated, isLoading } = useAuth();
   
-  // While checking authentication status, show nothing
+  // While checking authentication status, show loading indicator
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -20,8 +20,8 @@ const RouteGuard = ({ requireAdmin = false }) => {
   }
   
   // If admin access is required but user is not admin, redirect to dashboard
-  if (requireAdmin && currentUser?.role !== "admin") {
-    return <Navigate to="/" replace />;
+  if (requireAdmin && currentUser && currentUser.role !== "admin") {
+    return <Navigate to="/dashboard" replace />;
   }
   
   // Otherwise, render the protected route

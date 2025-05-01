@@ -10,6 +10,7 @@ import AppLayout from "./components/Layout/AppLayout";
 import RouteGuard from "./components/RouteGuard";
 
 // Pages
+import Index from "./pages/Index";
 import AuthPage from "./pages/AuthPage";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
@@ -31,12 +32,15 @@ const App = () => (
           <BrowserRouter>
             <AppLayout>
               <Routes>
+                {/* Root route */}
+                <Route path="/" element={<Index />} />
+                
                 {/* Public routes */}
                 <Route path="/login" element={<AuthPage />} />
 
                 {/* Protected routes */}
                 <Route element={<RouteGuard />}>
-                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/projects/:projectId" element={<ProjectDetail />} />
                   <Route path="/tasks" element={<Tasks />} />
