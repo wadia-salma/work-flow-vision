@@ -28,10 +28,19 @@ const AuthPage: React.FC = () => {
     try {
       const success = await login(email, password);
       if (!success) {
-        toast.error("Invalid credentials", {
-          description: "Please check your email and password.",
+        toast.error("Identifiants invalides", {
+          description: "Veuillez vérifier votre email et mot de passe.",
+        });
+      } else {
+        toast.success("Connexion réussie", {
+          description: "Bienvenue sur WorkFlow Vision!",
         });
       }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("Erreur de connexion", {
+        description: "Une erreur est survenue lors de la connexion.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -50,14 +59,14 @@ const AuthPage: React.FC = () => {
             <span className="text-white font-bold text-xl">WV</span>
           </div>
           <h1 className="mt-3 text-3xl font-bold">WorkFlow Vision</h1>
-          <p className="mt-2 text-gray-500">Sign in to your account</p>
+          <p className="mt-2 text-gray-500">Connectez-vous à votre compte</p>
         </div>
         
         <Card>
           <CardHeader>
-            <CardTitle>Sign In</CardTitle>
+            <CardTitle>Connexion</CardTitle>
             <CardDescription>
-              Enter your credentials to access your account
+              Entrez vos identifiants pour accéder à votre compte
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
@@ -67,25 +76,22 @@ const AuthPage: React.FC = () => {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="admin@example.com or client@example.com"
+                  placeholder="votre@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Mot de passe</Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="password"
+                  placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <p className="text-xs text-muted-foreground">
-                  (Use "password" for all demo accounts)
-                </p>
               </div>
             </CardContent>
             
@@ -95,38 +101,14 @@ const AuthPage: React.FC = () => {
                 disabled={isLoading}
                 className="w-full"
               >
-                {isLoading ? "Signing in..." : "Sign In"}
+                {isLoading ? "Connexion en cours..." : "Se connecter"}
               </Button>
             </CardFooter>
           </form>
         </Card>
         
-        <div className="text-center space-y-2">
-          <p className="text-sm text-gray-500">Demo Accounts</p>
-          <div className="flex justify-center gap-4">
-            <Button
-              variant="outline"
-              onClick={() => {
-                setEmail("admin@example.com");
-                setPassword("password");
-              }}
-              className="text-xs"
-              size="sm"
-            >
-              Admin User
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setEmail("client@example.com");
-                setPassword("password");
-              }}
-              className="text-xs"
-              size="sm"
-            >
-              Client User
-            </Button>
-          </div>
+        <div className="text-center text-sm text-gray-500">
+          <p>Pour tester l'API Laravel, vous devrez configurer le backend et créer un utilisateur.</p>
         </div>
       </div>
     </div>
