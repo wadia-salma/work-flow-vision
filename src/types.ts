@@ -21,7 +21,6 @@ export interface Task {
   projectId: string;
   assignedEmployees: string[];
   createdAt: string;
-  tjm?: number; // Taux Journalier Moyen (Daily Rate)
   daysSpent?: number;
 }
 
@@ -42,7 +41,6 @@ export interface Project {
   teamId: string;
   tasks: string[]; // Task IDs
   createdAt: string;
-  tjm?: number; // Project level TJM
 }
 
 export interface Team {

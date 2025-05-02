@@ -107,8 +107,7 @@ export const mockProjects: Project[] = [
     description: "Complete redesign of the company website with modern UI/UX",
     teamId: "team1",
     tasks: ["task1", "task2", "task3"],
-    createdAt: "2023-01-15T12:00:00.000Z",
-    tjm: 500
+    createdAt: "2023-01-15T12:00:00.000Z"
   },
   {
     id: "proj2",
@@ -116,8 +115,7 @@ export const mockProjects: Project[] = [
     description: "Develop a new mobile app for iOS and Android",
     teamId: "team1",
     tasks: ["task4", "task5"],
-    createdAt: "2023-03-10T09:30:00.000Z",
-    tjm: 600
+    createdAt: "2023-03-10T09:30:00.000Z"
   },
   {
     id: "proj3",
@@ -125,8 +123,7 @@ export const mockProjects: Project[] = [
     description: "Q2 marketing campaign for product launch",
     teamId: "team3",
     tasks: ["task6", "task7"],
-    createdAt: "2023-04-05T14:20:00.000Z",
-    tjm: 450
+    createdAt: "2023-04-05T14:20:00.000Z"
   }
 ];
 
@@ -139,7 +136,6 @@ export const mockTasks: Task[] = [
     projectId: "proj1",
     assignedEmployees: ["emp1", "emp4"],
     createdAt: "2023-01-16T09:00:00.000Z",
-    tjm: 450,
     daysSpent: 3
   },
   {
@@ -150,7 +146,6 @@ export const mockTasks: Task[] = [
     projectId: "proj1",
     assignedEmployees: ["emp2"],
     createdAt: "2023-01-18T10:15:00.000Z",
-    tjm: 500,
     daysSpent: 5
   },
   {
@@ -161,7 +156,6 @@ export const mockTasks: Task[] = [
     projectId: "proj1",
     assignedEmployees: ["emp3"],
     createdAt: "2023-01-20T11:30:00.000Z",
-    tjm: 520,
     daysSpent: 0
   },
   {
@@ -172,7 +166,6 @@ export const mockTasks: Task[] = [
     projectId: "proj2",
     assignedEmployees: ["emp5"],
     createdAt: "2023-03-12T14:45:00.000Z",
-    tjm: 550,
     daysSpent: 4
   },
   {
@@ -183,7 +176,6 @@ export const mockTasks: Task[] = [
     projectId: "proj2",
     assignedEmployees: ["emp7"],
     createdAt: "2023-03-15T16:20:00.000Z",
-    tjm: 400,
     daysSpent: 7
   },
   {
@@ -194,7 +186,6 @@ export const mockTasks: Task[] = [
     projectId: "proj3",
     assignedEmployees: ["emp6"],
     createdAt: "2023-04-06T09:10:00.000Z",
-    tjm: 350,
     daysSpent: 2
   },
   {
@@ -205,7 +196,6 @@ export const mockTasks: Task[] = [
     projectId: "proj3",
     assignedEmployees: ["emp6", "emp7"],
     createdAt: "2023-04-08T11:05:00.000Z",
-    tjm: 380,
     daysSpent: 0
   }
 ];

@@ -167,10 +167,10 @@ const TaskList = ({
                       <p className="text-sm">{format(new Date(task.createdAt), "MMM d, yyyy")}</p>
                     </div>
                     
-                    {isAdmin && task.tjm && task.daysSpent !== undefined && (
+                    {isAdmin && task.daysSpent !== undefined && (
                       <div>
-                        <p className="text-xs text-gray-600 font-medium">Cost</p>
-                        <p className="text-sm">€{task.tjm * task.daysSpent}</p>
+                        <p className="text-xs text-gray-600 font-medium">Days Spent</p>
+                        <p className="text-sm">{task.daysSpent} days</p>
                       </div>
                     )}
                   </div>

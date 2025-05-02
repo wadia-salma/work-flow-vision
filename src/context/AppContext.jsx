@@ -326,18 +326,6 @@ export const AppProvider = ({ children }) => {
     });
   };
   
-  // Utility functions
-  const calculateProjectCost = (projectId) => {
-    const projectTasks = tasks.filter(task => task.projectId === projectId);
-    return projectTasks.reduce((total, task) => {
-      // If task has tjm and daysSpent, calculate cost
-      if (task.tjm && task.daysSpent) {
-        return total + (task.tjm * task.daysSpent);
-      }
-      return total;
-    }, 0);
-  };
-
   const getProjectById = (projectId) => {
     return projects.find(project => project.id === projectId);
   };
@@ -375,7 +363,6 @@ export const AppProvider = ({ children }) => {
     deleteTask,
 
     // Utility functions
-    calculateProjectCost,
     getProjectById,
     getEmployeeById,
     getTeamById,

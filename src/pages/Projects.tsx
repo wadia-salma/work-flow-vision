@@ -34,7 +34,7 @@ import { toast } from "sonner";
 import { MoreHorizontal, Plus, Trash } from "lucide-react";
 
 const Projects: React.FC = () => {
-  const { projects, teams, addProject, deleteProject, calculateProjectCost, getTeamById, getTasksByProject } = useApp();
+  const { projects, teams, addProject, deleteProject, getTeamById, getTasksByProject } = useApp();
   const { currentUser } = useAuth();
   const isAdmin = currentUser?.role === "admin";
   
@@ -43,7 +43,6 @@ const Projects: React.FC = () => {
     name: "",
     description: "",
     teamId: teams[0]?.id || "",
-    tjm: 0,
   });
   
   const handleCreateProject = () => {
@@ -61,7 +60,6 @@ const Projects: React.FC = () => {
       name: "",
       description: "",
       teamId: teams[0]?.id || "",
-      tjm: 0,
     });
     
     setIsNewProjectOpen(false);
@@ -118,16 +116,6 @@ const Projects: React.FC = () => {
                     ))}
                   </select>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="tjm">Default TJM (€)</Label>
-                  <Input 
-                    id="tjm" 
-                    type="number"
-                    placeholder="Default daily rate"
-                    value={newProject.tjm || ""}
-                    onChange={(e) => setNewProject(prev => ({ ...prev, tjm: parseInt(e.target.value) || 0 }))}
-                  />
-                </div>
               </div>
               <DialogFooter>
                 <Button variant="outline" onClick={() => setIsNewProjectOpen(false)}>Cancel</Button>
@@ -151,8 +139,6 @@ const Projects: React.FC = () => {
                   <TableHead>Project Name</TableHead>
                   <TableHead>Team</TableHead>
                   <TableHead>Tasks</TableHead>
-                  {isAdmin && <TableHead>TJM</TableHead>}
-                  {isAdmin && <TableHead>Total Cost</TableHead>}
                   <TableHead>Created Date</TableHead>
                   {isAdmin && <TableHead className="w-[80px]">Actions</TableHead>}
                 </TableRow>
@@ -173,8 +159,6 @@ const Projects: React.FC = () => {
                       </TableCell>
                       <TableCell>{team?.name || "No Team"}</TableCell>
                       <TableCell>{taskCount}</TableCell>
-                      {isAdmin && <TableCell>€{project.tjm}</TableCell>}
-                      {isAdmin && <TableCell>€{calculateProjectCost(project.id)}</TableCell>}
                       <TableCell>{format(new Date(project.createdAt), "MMM d, yyyy")}</TableCell>
                       {isAdmin && (
                         <TableCell>

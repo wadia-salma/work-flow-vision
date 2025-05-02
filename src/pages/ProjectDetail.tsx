@@ -57,7 +57,6 @@ const ProjectDetail: React.FC = () => {
     status: "todo",
     projectId: projectId || "",
     assignedEmployees: [],
-    tjm: project?.tjm || 0,
     daysSpent: 0,
   });
   
@@ -88,7 +87,6 @@ const ProjectDetail: React.FC = () => {
       status: "todo",
       projectId: projectId || "",
       assignedEmployees: [],
-      tjm: project?.tjm || 0,
       daysSpent: 0,
     });
     
@@ -115,9 +113,9 @@ const ProjectDetail: React.FC = () => {
           </div>
         )}
         
-        {task.daysSpent && task.tjm && (
+        {task.daysSpent && (
           <div className="mt-1 text-xs text-gray-600">
-            <span className="font-medium">Cost:</span> €{task.daysSpent * task.tjm} ({task.daysSpent} days × €{task.tjm})
+            <span className="font-medium">Days spent:</span> {task.daysSpent} days
           </div>
         )}
         
@@ -221,27 +219,15 @@ const ProjectDetail: React.FC = () => {
                   </select>
                   <p className="text-xs text-gray-500">Hold Ctrl/Cmd to select multiple employees</p>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="tjm">TJM (€)</Label>
-                    <Input 
-                      id="tjm" 
-                      type="number"
-                      placeholder="Daily rate"
-                      value={newTask.tjm || ""}
-                      onChange={(e) => setNewTask(prev => ({ ...prev, tjm: parseInt(e.target.value) || 0 }))}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="daysSpent">Estimated Days</Label>
-                    <Input 
-                      id="daysSpent" 
-                      type="number"
-                      placeholder="Days required"
-                      value={newTask.daysSpent || ""}
-                      onChange={(e) => setNewTask(prev => ({ ...prev, daysSpent: parseInt(e.target.value) || 0 }))}
-                    />
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="daysSpent">Estimated Days</Label>
+                  <Input 
+                    id="daysSpent" 
+                    type="number"
+                    placeholder="Days required"
+                    value={newTask.daysSpent || ""}
+                    onChange={(e) => setNewTask(prev => ({ ...prev, daysSpent: parseInt(e.target.value) || 0 }))}
+                  />
                 </div>
               </div>
               <DialogFooter>
@@ -290,13 +276,6 @@ const ProjectDetail: React.FC = () => {
                 <dt className="text-sm font-medium text-gray-500">Created</dt>
                 <dd>{format(new Date(project.createdAt), "MMM d, yyyy")}</dd>
               </div>
-              
-              {isAdmin && (
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">Default TJM</dt>
-                  <dd>€{project.tjm || 0}</dd>
-                </div>
-              )}
               
               <div>
                 <dt className="text-sm font-medium text-gray-500">Tasks</dt>
@@ -446,13 +425,6 @@ const ProjectDetail: React.FC = () => {
                               <p className="text-xs text-gray-600 font-medium">Assigned To</p>
                               <p className="text-sm">{assignedEmployeeNames || "Unassigned"}</p>
                             </div>
-                            
-                            {isAdmin && task.tjm && (
-                              <div>
-                                <p className="text-xs text-gray-600 font-medium">TJM</p>
-                                <p className="text-sm">€{task.tjm}</p>
-                              </div>
-                            )}
                             
                             {isAdmin && task.daysSpent !== undefined && (
                               <div>
