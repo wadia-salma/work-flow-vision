@@ -21,17 +21,17 @@ export const mockUsers: User[] = [
 export const mockTeams: Team[] = [
   {
     id: "team1",
-    name: "Development Team",
+    name: "Équipe Développement",
     employeeIds: ["emp1", "emp2", "emp3"]
   },
   {
     id: "team2",
-    name: "Design Team",
+    name: "Équipe Design",
     employeeIds: ["emp4", "emp5"]
   },
   {
     id: "team3",
-    name: "Marketing Team",
+    name: "Équipe Marketing",
     employeeIds: ["emp6", "emp7"]
   }
 ];
@@ -39,27 +39,27 @@ export const mockTeams: Team[] = [
 export const mockEmployees: Employee[] = [
   {
     id: "emp1",
-    name: "John Developer",
+    name: "John Développeur",
     email: "john@example.com",
-    role: "Frontend Developer",
+    role: "Développeur Frontend",
     teamId: "team1",
     taskId: "task1",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=john"
   },
   {
     id: "emp2",
-    name: "Sarah Engineer",
+    name: "Sarah Ingénieure",
     email: "sarah@example.com",
-    role: "Backend Developer",
+    role: "Développeur Backend",
     teamId: "team1",
     taskId: "task2",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sarah"
   },
   {
     id: "emp3",
-    name: "Michael Coder",
+    name: "Michael Codeur",
     email: "michael@example.com",
-    role: "Full Stack Developer",
+    role: "Développeur Full Stack",
     teamId: "team1",
     taskId: "task3",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=michael"
@@ -68,32 +68,32 @@ export const mockEmployees: Employee[] = [
     id: "emp4",
     name: "Emma Designer",
     email: "emma@example.com",
-    role: "UI Designer",
+    role: "Designer UI",
     teamId: "team2",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=emma"
   },
   {
     id: "emp5",
-    name: "James Artist",
+    name: "James Artiste",
     email: "james@example.com",
-    role: "UX Designer",
+    role: "Designer UX",
     teamId: "team2",
     taskId: "task4",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=james"
   },
   {
     id: "emp6",
-    name: "Lisa Marketer",
+    name: "Lisa Marketeuse",
     email: "lisa@example.com",
-    role: "Marketing Specialist",
+    role: "Spécialiste Marketing",
     teamId: "team3",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=lisa"
   },
   {
     id: "emp7",
-    name: "David Analyst",
+    name: "David Analyste",
     email: "david@example.com",
-    role: "Marketing Analyst",
+    role: "Analyste Marketing",
     teamId: "team3",
     taskId: "task5",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=david"
@@ -103,24 +103,24 @@ export const mockEmployees: Employee[] = [
 export const mockProjects: Project[] = [
   {
     id: "proj1",
-    name: "Website Redesign",
-    description: "Complete redesign of the company website with modern UI/UX",
+    name: "Refonte du Site Web",
+    description: "Refonte complète du site web de l'entreprise avec une interface moderne",
     teamId: "team1",
     tasks: ["task1", "task2", "task3"],
     createdAt: "2023-01-15T12:00:00.000Z"
   },
   {
     id: "proj2",
-    name: "Mobile App Development",
-    description: "Develop a new mobile app for iOS and Android",
+    name: "Développement App Mobile",
+    description: "Développer une nouvelle application mobile pour iOS et Android",
     teamId: "team1",
     tasks: ["task4", "task5"],
     createdAt: "2023-03-10T09:30:00.000Z"
   },
   {
     id: "proj3",
-    name: "Marketing Campaign",
-    description: "Q2 marketing campaign for product launch",
+    name: "Campagne Marketing",
+    description: "Campagne marketing Q2 pour le lancement de produit",
     teamId: "team3",
     tasks: ["task6", "task7"],
     createdAt: "2023-04-05T14:20:00.000Z"
@@ -130,8 +130,8 @@ export const mockProjects: Project[] = [
 export const mockTasks: Task[] = [
   {
     id: "task1",
-    title: "Design Homepage",
-    description: "Create a modern, responsive design for the homepage",
+    title: "Design Page d'Accueil",
+    description: "Créer un design moderne et responsive pour la page d'accueil",
     status: "done",
     projectId: "proj1",
     assignedEmployees: ["emp1", "emp4"],
@@ -140,8 +140,8 @@ export const mockTasks: Task[] = [
   },
   {
     id: "task2",
-    title: "Backend API Development",
-    description: "Develop RESTful APIs for the website",
+    title: "Développement API Backend",
+    description: "Développer des API RESTful pour le site web",
     status: "in-progress",
     projectId: "proj1",
     assignedEmployees: ["emp2"],
@@ -150,8 +150,8 @@ export const mockTasks: Task[] = [
   },
   {
     id: "task3",
-    title: "User Authentication",
-    description: "Implement user authentication and authorization",
+    title: "Authentification Utilisateur",
+    description: "Implémenter l'authentification et l'autorisation des utilisateurs",
     status: "todo",
     projectId: "proj1",
     assignedEmployees: ["emp3"],
@@ -160,8 +160,8 @@ export const mockTasks: Task[] = [
   },
   {
     id: "task4",
-    title: "App UI Design",
-    description: "Design the UI for the mobile app",
+    title: "Design UI App Mobile",
+    description: "Concevoir l'interface utilisateur pour l'application mobile",
     status: "in-progress",
     projectId: "proj2",
     assignedEmployees: ["emp5"],
@@ -170,8 +170,8 @@ export const mockTasks: Task[] = [
   },
   {
     id: "task5",
-    title: "Market Research",
-    description: "Conduct market research for target audience",
+    title: "Étude de Marché",
+    description: "Mener une étude de marché pour le public cible",
     status: "done",
     projectId: "proj2",
     assignedEmployees: ["emp7"],
@@ -180,8 +180,8 @@ export const mockTasks: Task[] = [
   },
   {
     id: "task6",
-    title: "Social Media Strategy",
-    description: "Develop social media marketing strategy",
+    title: "Stratégie Réseaux Sociaux",
+    description: "Développer une stratégie marketing pour les réseaux sociaux",
     status: "done",
     projectId: "proj3",
     assignedEmployees: ["emp6"],
@@ -190,8 +190,8 @@ export const mockTasks: Task[] = [
   },
   {
     id: "task7",
-    title: "Content Creation",
-    description: "Create content for marketing campaign",
+    title: "Création de Contenu",
+    description: "Créer du contenu pour la campagne marketing",
     status: "todo",
     projectId: "proj3",
     assignedEmployees: ["emp6", "emp7"],
