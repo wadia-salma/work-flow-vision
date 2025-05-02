@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { mockProjects, mockTasks, mockEmployees, mockTeams } from "../mockData";
 import { toast } from "sonner";
@@ -337,6 +338,14 @@ export const AppProvider = ({ children }) => {
     }, 0);
   };
 
+  const getProjectById = (projectId) => {
+    return projects.find(project => project.id === projectId);
+  };
+
+  const getEmployeeById = (employeeId) => {
+    return employees.find(employee => employee.id === employeeId);
+  };
+
   const getTeamById = (teamId) => {
     return teams.find(team => team.id === teamId);
   };
@@ -367,8 +376,13 @@ export const AppProvider = ({ children }) => {
 
     // Utility functions
     calculateProjectCost,
+    getProjectById,
+    getEmployeeById,
     getTeamById,
-    getTasksByProject
+    getTasksByProject,
+    updateTaskStatus: (taskId, newStatus) => {
+      updateTask(taskId, { status: newStatus });
+    }
   };
 
   return (

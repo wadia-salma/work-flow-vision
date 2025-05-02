@@ -26,6 +26,14 @@ const Tasks: React.FC = () => {
   const { currentUser } = useAuth();
   const isAdmin = currentUser?.role === "admin";
   
+  console.log("Tasks component initialized with:", { 
+    tasksCount: tasks.length,
+    getProjectById: typeof getProjectById,
+    getEmployeeById: typeof getEmployeeById,
+    updateTaskStatus: typeof updateTaskStatus,
+    currentUser
+  });
+  
   // Filter tasks based on user role
   const filteredTasks = isAdmin 
     ? tasks 
@@ -97,7 +105,28 @@ const Tasks: React.FC = () => {
   );
 };
 
-const TaskList = ({ tasks, getProjectById, getEmployeeById, handleChangeStatus, isAdmin }) => {
+// Define the props interface for the TaskList component
+interface TaskListProps {
+  tasks: any[];
+  getProjectById: (id: string) => any;
+  getEmployeeById: (id: string) => any;
+  handleChangeStatus: (taskId: string, newStatus: TaskStatus) => void;
+  isAdmin: boolean;
+}
+
+const TaskList = ({ 
+  tasks, 
+  getProjectById, 
+  getEmployeeById, 
+  handleChangeStatus,
+  isAdmin 
+}: TaskListProps) => {
+  console.log("TaskList received props:", {
+    tasksCount: tasks.length,
+    getProjectById: typeof getProjectById,
+    getEmployeeById: typeof getEmployeeById
+  });
+
   return (
     <Card className="mt-6">
       <CardContent className="pt-6">
@@ -105,6 +134,7 @@ const TaskList = ({ tasks, getProjectById, getEmployeeById, handleChangeStatus, 
           {tasks.length > 0 ? (
             tasks.map(task => {
               const project = getProjectById(task.projectId);
+              console.log(`Project for task ${task.id}:`, project);
               
               const status = (() => {
                 switch (task.status) {
