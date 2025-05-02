@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useApp } from "@/context/AppContext";
 import { useAuth } from "@/context/AuthContext";
@@ -254,15 +255,3 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
-
-// Button component for the "New Project" link
-const Button = ({ children, className = "", ...props }) => {
-  return (
-    <button 
-      className={`px-4 py-2 rounded-md font-medium ${className}`} 
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};
