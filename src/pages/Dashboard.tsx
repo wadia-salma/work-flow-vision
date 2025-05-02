@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useApp } from "@/context/AppContext";
 import { useAuth } from "@/context/AuthContext";
@@ -23,23 +22,30 @@ import {
   Cell,
 } from "recharts";
 import { format } from "date-fns";
+import { Button } from "@/components/ui/button";
 
 const Dashboard: React.FC = () => {
   const { currentUser } = useAuth();
   const { 
-    projects, 
-    tasks, 
-    employees, 
-    teams, 
+    projects = [], 
+    tasks = [], 
+    employees = [], 
+    teams = [],
     calculateProjectCost 
   } = useApp();
+
+  console.log("Dashboard loaded with app data:", {
+    projectsCount: projects.length,
+    tasksCount: tasks.length,
+    calculateProjectCost: typeof calculateProjectCost
+  });
 
   const isAdmin = currentUser?.role === "admin";
 
   // Filter tasks based on user role
   const filteredTasks = isAdmin 
     ? tasks 
-    : tasks.filter(task => task.assignedEmployees.includes(currentUser?.id || ""));
+    : tasks.filter(task => task.assignedEmployees?.includes(currentUser?.id || ""));
 
   // Calculate totals
   const totalProjects = projects.length;
@@ -60,7 +66,7 @@ const Dashboard: React.FC = () => {
   // Project costs data for bar chart
   const projectCostData = projects.map(project => ({
     name: project.name,
-    cost: calculateProjectCost(project.id),
+    cost: calculateProjectCost ? calculateProjectCost(project.id) : 0,
   }));
 
   // Recent tasks

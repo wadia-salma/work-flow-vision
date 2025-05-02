@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { mockProjects, mockTasks, mockEmployees, mockTeams } from "../mockData";
 import { toast } from "sonner";
@@ -326,6 +325,26 @@ export const AppProvider = ({ children }) => {
     });
   };
   
+  // Utility functions
+  const calculateProjectCost = (projectId) => {
+    const projectTasks = tasks.filter(task => task.projectId === projectId);
+    return projectTasks.reduce((total, task) => {
+      // If task has tjm and daysSpent, calculate cost
+      if (task.tjm && task.daysSpent) {
+        return total + (task.tjm * task.daysSpent);
+      }
+      return total;
+    }, 0);
+  };
+
+  const getTeamById = (teamId) => {
+    return teams.find(team => team.id === teamId);
+  };
+
+  const getTasksByProject = (projectId) => {
+    return tasks.filter(task => task.projectId === projectId);
+  };
+  
   // Values to expose via context
   const contextValue = {
     // Project data
@@ -345,6 +364,11 @@ export const AppProvider = ({ children }) => {
     addTask,
     updateTask,
     deleteTask,
+
+    // Utility functions
+    calculateProjectCost,
+    getTeamById,
+    getTasksByProject
   };
 
   return (
