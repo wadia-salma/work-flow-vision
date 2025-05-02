@@ -4,14 +4,14 @@ import { User, Task, Project, Employee, Team } from "./types";
 export const mockUsers: User[] = [
   {
     id: "user1",
-    name: "Admin User",
+    name: "Administrateur",
     email: "admin@example.com",
     role: "admin",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=admin"
   },
   {
     id: "user2",
-    name: "Client User",
+    name: "Client",
     email: "client@example.com",
     role: "client",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=client"
@@ -39,8 +39,8 @@ export const mockTeams: Team[] = [
 export const mockEmployees: Employee[] = [
   {
     id: "emp1",
-    name: "John Développeur",
-    email: "john@example.com",
+    name: "Jean Développeur",
+    email: "jean@example.com",
     role: "Développeur Frontend",
     teamId: "team1",
     taskId: "task1",
@@ -48,8 +48,8 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: "emp2",
-    name: "Sarah Ingénieure",
-    email: "sarah@example.com",
+    name: "Sophie Ingénieure",
+    email: "sophie@example.com",
     role: "Développeur Backend",
     teamId: "team1",
     taskId: "task2",
@@ -57,8 +57,8 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: "emp3",
-    name: "Michael Codeur",
-    email: "michael@example.com",
+    name: "Michel Codeur",
+    email: "michel@example.com",
     role: "Développeur Full Stack",
     teamId: "team1",
     taskId: "task3",
@@ -66,16 +66,16 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: "emp4",
-    name: "Emma Designer",
-    email: "emma@example.com",
+    name: "Émilie Designer",
+    email: "emilie@example.com",
     role: "Designer UI",
     teamId: "team2",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=emma"
   },
   {
     id: "emp5",
-    name: "James Artiste",
-    email: "james@example.com",
+    name: "Jacques Artiste",
+    email: "jacques@example.com",
     role: "Designer UX",
     teamId: "team2",
     taskId: "task4",

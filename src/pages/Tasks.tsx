@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { useApp } from "@/context/AppContext";
 import { useAuth } from "@/context/AuthContext";
 import { TaskStatus } from "@/types";
@@ -26,14 +26,6 @@ const Tasks: React.FC = () => {
   const { currentUser } = useAuth();
   const isAdmin = currentUser?.role === "admin";
   
-  console.log("Tasks component initialized with:", { 
-    tasksCount: tasks.length,
-    getProjectById: typeof getProjectById,
-    getEmployeeById: typeof getEmployeeById,
-    updateTaskStatus: typeof updateTaskStatus,
-    currentUser
-  });
-  
   // Filter tasks based on user role
   const filteredTasks = isAdmin 
     ? tasks 
@@ -50,15 +42,15 @@ const Tasks: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Tasks</h1>
+        <h1 className="text-2xl font-bold">Tâches</h1>
       </div>
       
       <Tabs defaultValue="all">
         <TabsList>
-          <TabsTrigger value="all">All Tasks ({filteredTasks.length})</TabsTrigger>
-          <TabsTrigger value="todo">To Do ({todoTasks.length})</TabsTrigger>
-          <TabsTrigger value="in-progress">In Progress ({inProgressTasks.length})</TabsTrigger>
-          <TabsTrigger value="done">Done ({doneTasks.length})</TabsTrigger>
+          <TabsTrigger value="all">Toutes les Tâches ({filteredTasks.length})</TabsTrigger>
+          <TabsTrigger value="todo">À Faire ({todoTasks.length})</TabsTrigger>
+          <TabsTrigger value="in-progress">En Cours ({inProgressTasks.length})</TabsTrigger>
+          <TabsTrigger value="done">Terminées ({doneTasks.length})</TabsTrigger>
         </TabsList>
         
         <TabsContent value="all">
@@ -121,12 +113,6 @@ const TaskList = ({
   handleChangeStatus,
   isAdmin 
 }: TaskListProps) => {
-  console.log("TaskList received props:", {
-    tasksCount: tasks.length,
-    getProjectById: typeof getProjectById,
-    getEmployeeById: typeof getEmployeeById
-  });
-
   return (
     <Card className="mt-6">
       <CardContent className="pt-6">
@@ -134,13 +120,12 @@ const TaskList = ({
           {tasks.length > 0 ? (
             tasks.map(task => {
               const project = getProjectById(task.projectId);
-              console.log(`Project for task ${task.id}:`, project);
               
               const status = (() => {
                 switch (task.status) {
-                  case "todo": return <span className="status-badge status-todo">To Do</span>;
-                  case "in-progress": return <span className="status-badge status-in-progress">In Progress</span>;
-                  case "done": return <span className="status-badge status-done">Done</span>;
+                  case "todo": return <span className="status-badge status-todo">À Faire</span>;
+                  case "in-progress": return <span className="status-badge status-in-progress">En Cours</span>;
+                  case "done": return <span className="status-badge status-done">Terminée</span>;
                   default: return null;
                 }
               })();
@@ -156,27 +141,27 @@ const TaskList = ({
                   
                   <div className="mt-4 flex flex-wrap gap-4">
                     <div>
-                      <p className="text-xs text-gray-600 font-medium">Project</p>
+                      <p className="text-xs text-gray-600 font-medium">Projet</p>
                       <Link to={`/projects/${project?.id}`} className="text-sm text-jira-blue hover:underline">
-                        {project?.name || "Unknown Project"}
+                        {project?.name || "Projet Inconnu"}
                       </Link>
                     </div>
                     
                     <div>
-                      <p className="text-xs text-gray-600 font-medium">Created</p>
-                      <p className="text-sm">{format(new Date(task.createdAt), "MMM d, yyyy")}</p>
+                      <p className="text-xs text-gray-600 font-medium">Créée le</p>
+                      <p className="text-sm">{format(new Date(task.createdAt), "d MMM yyyy")}</p>
                     </div>
                     
                     {isAdmin && task.daysSpent !== undefined && (
                       <div>
-                        <p className="text-xs text-gray-600 font-medium">Days Spent</p>
-                        <p className="text-sm">{task.daysSpent} days</p>
+                        <p className="text-xs text-gray-600 font-medium">Jours Passés</p>
+                        <p className="text-sm">{task.daysSpent} jours</p>
                       </div>
                     )}
                   </div>
                   
                   <div className="mt-4">
-                    <p className="text-xs text-gray-600 font-medium mb-2">Assigned To</p>
+                    <p className="text-xs text-gray-600 font-medium mb-2">Assignée à</p>
                     <div className="flex flex-wrap gap-2">
                       {task.assignedEmployees.map(employeeId => {
                         const employee = getEmployeeById(employeeId);
@@ -194,7 +179,7 @@ const TaskList = ({
                       })}
                       
                       {task.assignedEmployees.length === 0 && (
-                        <span className="text-sm text-gray-500">Unassigned</span>
+                        <span className="text-sm text-gray-500">Non assignée</span>
                       )}
                     </div>
                   </div>
@@ -207,7 +192,7 @@ const TaskList = ({
                           size="sm"
                           onClick={() => handleChangeStatus(task.id, "in-progress")}
                         >
-                          Start
+                          Commencer
                         </Button>
                       )}
                       
@@ -217,7 +202,7 @@ const TaskList = ({
                           size="sm"
                           onClick={() => handleChangeStatus(task.id, "done")}
                         >
-                          Complete
+                          Terminer
                         </Button>
                       )}
                       
@@ -227,7 +212,7 @@ const TaskList = ({
                           size="sm"
                           onClick={() => handleChangeStatus(task.id, "done")}
                         >
-                          Mark as Done
+                          Marquer comme Terminée
                         </Button>
                       )}
                     </div>
@@ -237,7 +222,7 @@ const TaskList = ({
             })
           ) : (
             <div className="text-center py-8 text-gray-500">
-              <p>No tasks found</p>
+              <p>Aucune tâche trouvée</p>
             </div>
           )}
         </div>

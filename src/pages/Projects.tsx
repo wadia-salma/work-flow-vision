@@ -47,7 +47,7 @@ const Projects: React.FC = () => {
   
   const handleCreateProject = () => {
     if (!newProject.name || !newProject.teamId) {
-      toast.error("Please fill in all required fields");
+      toast.error("Veuillez remplir tous les champs obligatoires");
       return;
     }
     
@@ -68,28 +68,28 @@ const Projects: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Projects</h1>
+        <h1 className="text-2xl font-bold">Projets</h1>
         {isAdmin && (
           <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
             <DialogTrigger asChild>
               <Button className="bg-jira-blue hover:bg-jira-blue/90 text-white">
                 <Plus className="h-4 w-4 mr-2" />
-                New Project
+                Nouveau Projet
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Create New Project</DialogTitle>
+                <DialogTitle>Créer un Nouveau Projet</DialogTitle>
                 <DialogDescription>
-                  Create a new project and assign it to a team.
+                  Créez un nouveau projet et assignez-le à une équipe.
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Project Name</Label>
+                  <Label htmlFor="name">Nom du Projet</Label>
                   <Input 
                     id="name" 
-                    placeholder="Enter project name"
+                    placeholder="Entrez le nom du projet"
                     value={newProject.name}
                     onChange={(e) => setNewProject(prev => ({ ...prev, name: e.target.value }))}
                   />
@@ -98,13 +98,13 @@ const Projects: React.FC = () => {
                   <Label htmlFor="description">Description</Label>
                   <Textarea 
                     id="description" 
-                    placeholder="Describe the project"
+                    placeholder="Décrivez le projet"
                     value={newProject.description}
                     onChange={(e) => setNewProject(prev => ({ ...prev, description: e.target.value }))}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="team">Assign Team</Label>
+                  <Label htmlFor="team">Assigner une Équipe</Label>
                   <select
                     id="team"
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -118,8 +118,8 @@ const Projects: React.FC = () => {
                 </div>
               </div>
               <DialogFooter>
-                <Button variant="outline" onClick={() => setIsNewProjectOpen(false)}>Cancel</Button>
-                <Button onClick={handleCreateProject}>Create Project</Button>
+                <Button variant="outline" onClick={() => setIsNewProjectOpen(false)}>Annuler</Button>
+                <Button onClick={handleCreateProject}>Créer Projet</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -128,18 +128,18 @@ const Projects: React.FC = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>All Projects</CardTitle>
-          <CardDescription>Manage and view all your projects</CardDescription>
+          <CardTitle>Tous les Projets</CardTitle>
+          <CardDescription>Gérez et consultez tous vos projets</CardDescription>
         </CardHeader>
         <CardContent>
           {projects.length > 0 ? (
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Project Name</TableHead>
-                  <TableHead>Team</TableHead>
-                  <TableHead>Tasks</TableHead>
-                  <TableHead>Created Date</TableHead>
+                  <TableHead>Nom du Projet</TableHead>
+                  <TableHead>Équipe</TableHead>
+                  <TableHead>Tâches</TableHead>
+                  <TableHead>Date Création</TableHead>
                   {isAdmin && <TableHead className="w-[80px]">Actions</TableHead>}
                 </TableRow>
               </TableHeader>
@@ -157,15 +157,15 @@ const Projects: React.FC = () => {
                         </Link>
                         <p className="text-sm text-gray-500 truncate w-48">{project.description}</p>
                       </TableCell>
-                      <TableCell>{team?.name || "No Team"}</TableCell>
+                      <TableCell>{team?.name || "Pas d'équipe"}</TableCell>
                       <TableCell>{taskCount}</TableCell>
-                      <TableCell>{format(new Date(project.createdAt), "MMM d, yyyy")}</TableCell>
+                      <TableCell>{format(new Date(project.createdAt), "d MMM yyyy")}</TableCell>
                       {isAdmin && (
                         <TableCell>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Open menu</span>
+                                <span className="sr-only">Ouvrir menu</span>
                                 <MoreHorizontal className="h-4 w-4" />
                               </Button>
                             </DropdownMenuTrigger>
@@ -173,13 +173,13 @@ const Projects: React.FC = () => {
                               <DropdownMenuItem 
                                 className="text-red-600 focus:text-red-600"
                                 onClick={() => {
-                                  if (window.confirm(`Are you sure you want to delete ${project.name}?`)) {
+                                  if (window.confirm(`Êtes-vous sûr de vouloir supprimer ${project.name}?`)) {
                                     deleteProject(project.id);
                                   }
                                 }}
                               >
                                 <Trash className="h-4 w-4 mr-2" />
-                                Delete
+                                Supprimer
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
@@ -192,7 +192,7 @@ const Projects: React.FC = () => {
             </Table>
           ) : (
             <div className="text-center py-6">
-              <p className="text-gray-500">No projects found</p>
+              <p className="text-gray-500">Aucun projet trouvé</p>
             </div>
           )}
         </CardContent>

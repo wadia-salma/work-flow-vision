@@ -52,7 +52,7 @@ const Teams = () => {
   
   const handleAddEmployee = () => {
     if (!newEmployee.name || !newEmployee.email || !newEmployee.role || !newEmployee.teamId) {
-      toast.error("Please fill in all required fields");
+      toast.error("Veuillez remplir tous les champs obligatoires");
       return;
     }
     
@@ -70,7 +70,7 @@ const Teams = () => {
   
   const handleAddTeam = () => {
     if (!newTeam.name) {
-      toast.error("Please enter a team name");
+      toast.error("Veuillez saisir un nom d'équipe");
       return;
     }
     
@@ -97,36 +97,36 @@ const Teams = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Teams</h1>
+        <h1 className="text-2xl font-bold">Équipes</h1>
         
         <Dialog open={isNewTeamOpen} onOpenChange={setIsNewTeamOpen}>
           <DialogTrigger asChild>
             <Button className="flex items-center gap-1">
               <Plus className="h-4 w-4" />
-              <span>Create Team</span>
+              <span>Créer Équipe</span>
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Create New Team</DialogTitle>
+              <DialogTitle>Créer une Nouvelle Équipe</DialogTitle>
               <DialogDescription>
-                Add a new team to your organization
+                Ajoutez une nouvelle équipe à votre organisation
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="teamName">Team Name</Label>
+                <Label htmlFor="teamName">Nom d'Équipe</Label>
                 <Input 
                   id="teamName" 
-                  placeholder="Enter team name"
+                  placeholder="Entrez le nom de l'équipe"
                   value={newTeam.name}
                   onChange={(e) => setNewTeam(prev => ({ ...prev, name: e.target.value }))}
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsNewTeamOpen(false)}>Cancel</Button>
-              <Button onClick={handleAddTeam}>Create Team</Button>
+              <Button variant="outline" onClick={() => setIsNewTeamOpen(false)}>Annuler</Button>
+              <Button onClick={handleAddTeam}>Créer Équipe</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -134,49 +134,49 @@ const Teams = () => {
         <Dialog open={isNewEmployeeOpen} onOpenChange={setIsNewEmployeeOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add New Team Member</DialogTitle>
+              <DialogTitle>Ajouter un Nouveau Membre</DialogTitle>
               <DialogDescription>
-                Add a new employee to {selectedTeam?.name}
+                Ajouter un nouvel employé à {selectedTeam?.name}
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Employee Name</Label>
+                <Label htmlFor="name">Nom de l'Employé</Label>
                 <Input 
                   id="name" 
-                  placeholder="Full name"
+                  placeholder="Nom complet"
                   value={newEmployee.name}
                   onChange={(e) => setNewEmployee(prev => ({ ...prev, name: e.target.value }))}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email">Adresse Email</Label>
                 <Input 
                   id="email" 
                   type="email"
-                  placeholder="Email address"
+                  placeholder="Adresse email"
                   value={newEmployee.email}
                   onChange={(e) => setNewEmployee(prev => ({ ...prev, email: e.target.value }))}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="role">Role</Label>
+                <Label htmlFor="role">Rôle</Label>
                 <Input 
                   id="role" 
-                  placeholder="Job title or role"
+                  placeholder="Titre du poste ou rôle"
                   value={newEmployee.role}
                   onChange={(e) => setNewEmployee(prev => ({ ...prev, role: e.target.value }))}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="teamId">Team</Label>
+                <Label htmlFor="teamId">Équipe</Label>
                 <select
                   id="teamId"
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                   value={newEmployee.teamId}
                   onChange={(e) => setNewEmployee(prev => ({ ...prev, teamId: e.target.value }))}
                 >
-                  <option value="">Select a team</option>
+                  <option value="">Sélectionnez une équipe</option>
                   {safeTeams.map(team => (
                     <option key={team.id} value={team.id}>{team.name}</option>
                   ))}
@@ -184,8 +184,8 @@ const Teams = () => {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsNewEmployeeOpen(false)}>Cancel</Button>
-              <Button onClick={handleAddEmployee}>Add Employee</Button>
+              <Button variant="outline" onClick={() => setIsNewEmployeeOpen(false)}>Annuler</Button>
+              <Button onClick={handleAddEmployee}>Ajouter Employé</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -205,7 +205,7 @@ const Teams = () => {
                     </div>
                     <div>
                       <CardTitle>{team.name}</CardTitle>
-                      <CardDescription>{teamEmployees.length} members</CardDescription>
+                      <CardDescription>{teamEmployees.length} membres</CardDescription>
                     </div>
                   </div>
                 </div>
@@ -226,7 +226,7 @@ const Teams = () => {
                   ))}
                   
                   {teamEmployees.length === 0 && (
-                    <p className="text-center py-4 text-gray-500">No team members yet</p>
+                    <p className="text-center py-4 text-gray-500">Aucun membre dans cette équipe</p>
                   )}
                 </div>
               </CardContent>
@@ -237,7 +237,7 @@ const Teams = () => {
                   onClick={() => openNewEmployeeDialog(team)}
                 >
                   <UserPlus className="h-4 w-4" />
-                  <span>Add Member</span>
+                  <span>Ajouter Membre</span>
                 </Button>
               </CardFooter>
             </Card>
