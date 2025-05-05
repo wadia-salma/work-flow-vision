@@ -93,6 +93,11 @@ const AuthPage = () => {
                   required
                 />
               </div>
+              <div className="text-sm text-gray-500 mt-2">
+                <p>Demo credentials:</p>
+                <p>Email: demo@example.com</p>
+                <p>Password: password</p>
+              </div>
             </CardContent>
             
             <CardFooter>

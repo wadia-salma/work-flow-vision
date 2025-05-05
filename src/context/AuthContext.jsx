@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { authService } from "../api/services";
 import { toast } from "sonner";
@@ -10,6 +9,15 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   console.log("AuthProvider initializing");
+
+  // For demo purposes, add some mock user data
+  const demoUser = {
+    id: 1,
+    name: "Demo User",
+    email: "demo@example.com",
+    role: "admin",
+    avatar: null
+  };
 
   useEffect(() => {
     console.log("AuthProvider useEffect running");
@@ -35,13 +43,23 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     setIsLoading(true);
     try {
-      // Call login API
-      const data = await authService.login(email, password);
-      console.log("Login successful for:", data.user);
+      // For demo purpose, check if using demo credentials
+      if (email === "demo@example.com" && password === "password") {
+        console.log("Login successful for demo user");
+        setCurrentUser(demoUser);
+        return true;
+      }
       
-      // Set user data
-      setCurrentUser(data.user);
-      return true;
+      // Otherwise, try real API login
+      try {
+        const data = await authService.login(email, password);
+        console.log("Login successful for:", data.user);
+        setCurrentUser(data.user);
+        return true;
+      } catch (apiError) {
+        console.error("API login failed:", apiError);
+        return false;
+      }
     } catch (error) {
       console.error("Login failed:", error);
       return false;
