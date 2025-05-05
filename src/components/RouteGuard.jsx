@@ -1,13 +1,12 @@
-import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
+
+import React from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
 
 const RouteGuard = ({ requireAdmin = false }) => {
-  const { currentUser, isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, currentUser } = useAuth();
   
-  console.log("RouteGuard rendering with:", { isAuthenticated, isLoading, requireAdmin });
-  
-  // While checking authentication status, show loading indicator
+  // If auth is still loading, show a spinner
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -18,18 +17,15 @@ const RouteGuard = ({ requireAdmin = false }) => {
   
   // If not authenticated, redirect to login
   if (!isAuthenticated) {
-    console.log("Not authenticated, redirecting to login");
     return <Navigate to="/login" replace />;
   }
   
-  // If admin access is required but user is not admin, redirect to dashboard
-  if (requireAdmin && currentUser && currentUser.role !== "admin") {
-    console.log("Admin access required but user is not admin");
+  // If admin is required but user is not admin, redirect to dashboard
+  if (requireAdmin && currentUser?.role !== 'admin') {
     return <Navigate to="/dashboard" replace />;
   }
   
-  console.log("Rendering protected route");
-  // Otherwise, render the protected route
+  // Allow access to the protected routes
   return <Outlet />;
 };
 

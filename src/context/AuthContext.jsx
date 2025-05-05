@@ -1,6 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { mockUsers } from "../mockData";
+import { authService } from "../api/services";
+import { toast } from "sonner";
 
 const AuthContext = createContext(undefined);
 
@@ -12,55 +13,53 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     console.log("AuthProvider useEffect running");
-    // Check for saved user in localStorage
-    const savedUser = localStorage.getItem("currentUser");
     
-    if (savedUser) {
+    const fetchCurrentUser = async () => {
       try {
-        const parsedUser = JSON.parse(savedUser);
-        console.log("Found saved user:", parsedUser);
-        setCurrentUser(parsedUser);
+        // Try to get current user from API
+        const user = await authService.getCurrentUser();
+        console.log("Found authenticated user:", user);
+        setCurrentUser(user);
       } catch (error) {
-        console.error("Error parsing saved user:", error);
-        localStorage.removeItem("currentUser");
+        console.log("No authenticated user found");
+        // If API call fails, user is not authenticated
+        setCurrentUser(null);
+      } finally {
+        setIsLoading(false);
       }
-    } else {
-      console.log("No saved user found");
-    }
+    };
     
-    // Always set loading to false after checking local storage
-    setIsLoading(false);
+    fetchCurrentUser();
   }, []);
 
   const login = async (email, password) => {
-    // In a real app, this would be an API call
     setIsLoading(true);
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 800));
+      // Call login API
+      const data = await authService.login(email, password);
+      console.log("Login successful for:", data.user);
       
-      console.log("Login attempt for:", email);
-      
-      // Mock authentication
-      const user = mockUsers.find(u => u.email === email);
-      
-      if (user && password === "password") { // Simple mock password check
-        console.log("Login successful for:", user);
-        setCurrentUser(user);
-        localStorage.setItem("currentUser", JSON.stringify(user));
-        return true;
-      }
-      console.log("Login failed");
+      // Set user data
+      setCurrentUser(data.user);
+      return true;
+    } catch (error) {
+      console.error("Login failed:", error);
       return false;
     } finally {
       setIsLoading(false);
     }
   };
 
-  const logout = () => {
-    console.log("Logging out");
-    setCurrentUser(null);
-    localStorage.removeItem("currentUser");
+  const logout = async () => {
+    try {
+      await authService.logout();
+      setCurrentUser(null);
+      toast.success("Vous avez été déconnecté avec succès");
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Even if API logout fails, clear local user state
+      setCurrentUser(null);
+    }
   };
 
   const authContextValue = {

@@ -1,41 +1,31 @@
-
-import React from "react";
-import AppSidebar from "./AppSidebar";
-import AppHeader from "./AppHeader";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { useAuth } from "@/context/AuthContext";
+import React from 'react';
+import { useAuth } from '@/context/AuthContext';
+import AppHeader from './AppHeader';
+import AppSidebar from './AppSidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
 const AppLayout = ({ children }) => {
-  const { currentUser, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
   
-  console.log("AppLayout rendering with:", { hasUser: !!currentUser, isLoading });
-  
-  // If auth is still loading or no user, just render children without layout
-  if (isLoading) {
+  // If user is not on an auth page, show a full app layout with sidebar and header
+  if (isAuthenticated && !isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-jira-blue border-t-transparent rounded-full"></div>
-      </div>
+      <SidebarProvider>
+        <div className="min-h-screen flex w-full">
+          <AppSidebar />
+          <div className="flex-1 flex flex-col">
+            <AppHeader />
+            <main className="flex-1 bg-slate-50 p-6">
+              {children}
+            </main>
+          </div>
+        </div>
+      </SidebarProvider>
     );
   }
-
-  if (!currentUser) {
-    console.log("No user in AppLayout, returning children directly");
-    return <>{children}</>;
-  }
-
-  console.log("Rendering full app layout");
-  return (
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full">
-        <AppSidebar />
-        <div className="flex-1">
-          <AppHeader />
-          <main className="p-6">{children}</main>
-        </div>
-      </div>
-    </SidebarProvider>
-  );
+  
+  // Otherwise just render the content (login page, etc)
+  return <>{children}</>;
 };
 
 export default AppLayout;
