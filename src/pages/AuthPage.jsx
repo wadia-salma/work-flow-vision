@@ -16,8 +16,8 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 const AuthPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("demo@example.com");
+  const [password, setPassword] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
   const { login, isAuthenticated } = useAuth();
 
@@ -28,18 +28,18 @@ const AuthPage = () => {
     try {
       const success = await login(email, password);
       if (!success) {
-        toast.error("Identifiants invalides", {
-          description: "Veuillez vérifier votre email et mot de passe.",
+        toast.error("Invalid credentials", {
+          description: "Please check your email and password.",
         });
       } else {
-        toast.success("Connexion réussie", {
-          description: "Bienvenue sur WorkFlow Vision!",
+        toast.success("Login successful", {
+          description: "Welcome to WorkFlow Vision!",
         });
       }
     } catch (error) {
       console.error("Login error:", error);
-      toast.error("Erreur de connexion", {
-        description: "Une erreur est survenue lors de la connexion.",
+      toast.error("Login Error", {
+        description: "An error occurred during login.",
       });
     } finally {
       setIsLoading(false);
@@ -59,14 +59,14 @@ const AuthPage = () => {
             <span className="text-white font-bold text-xl">WV</span>
           </div>
           <h1 className="mt-3 text-3xl font-bold">WorkFlow Vision</h1>
-          <p className="mt-2 text-gray-500">Connectez-vous à votre compte</p>
+          <p className="mt-2 text-gray-500">Log in to your account</p>
         </div>
         
         <Card>
           <CardHeader>
-            <CardTitle>Connexion</CardTitle>
+            <CardTitle>Login</CardTitle>
             <CardDescription>
-              Entrez vos identifiants pour accéder à votre compte
+              Enter your credentials to access your account
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
@@ -76,14 +76,14 @@ const AuthPage = () => {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="votre@email.com"
+                  placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Mot de passe</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -93,10 +93,11 @@ const AuthPage = () => {
                   required
                 />
               </div>
-              <div className="text-sm text-gray-500 mt-2">
-                <p>Demo credentials:</p>
-                <p>Email: demo@example.com</p>
-                <p>Password: password</p>
+              <div className="bg-blue-50 p-3 rounded-md border border-blue-100 text-sm">
+                <p className="font-medium text-blue-700">Demo Credentials (Pre-filled)</p>
+                <p className="text-blue-600">Email: demo@example.com</p>
+                <p className="text-blue-600">Password: password</p>
+                <p className="mt-1 text-blue-500 text-xs">Just click Login to continue</p>
               </div>
             </CardContent>
             
@@ -106,14 +107,14 @@ const AuthPage = () => {
                 disabled={isLoading}
                 className="w-full"
               >
-                {isLoading ? "Connexion en cours..." : "Se connecter"}
+                {isLoading ? "Logging in..." : "Login"}
               </Button>
             </CardFooter>
           </form>
         </Card>
         
         <div className="text-center text-sm text-gray-500">
-          <p>Pour tester l'API Laravel, vous devrez configurer le backend et créer un utilisateur.</p>
+          <p>This is a demo application with mock API services.</p>
         </div>
       </div>
     </div>

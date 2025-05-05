@@ -38,7 +38,7 @@ const App = () => {
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="text-center">
           <div className="animate-spin w-12 h-12 border-4 border-jira-blue border-t-transparent rounded-full mx-auto"></div>
-          <p className="mt-4 text-gray-600">Connexion à l'API...</p>
+          <p className="mt-4 text-gray-600">Application Loading...</p>
         </div>
       </div>
     );

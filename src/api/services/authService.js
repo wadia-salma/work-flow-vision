@@ -1,24 +1,33 @@
 
-import api from '../axios';
-import { ENDPOINTS } from '../config';
-
-export const authService = {
+// Mock authentication service
+const authService = {
+  // Mock login function that returns a promise
   login: async (email, password) => {
-    // First, make sure CSRF cookie is set (required by Laravel Sanctum)
-    await api.get('/sanctum/csrf-cookie');
-    
-    // Then login
-    const response = await api.post(ENDPOINTS.LOGIN, { email, password });
-    return response.data;
+    console.log("Mock login called with:", email, password);
+    // Just return a fixed response for demo
+    return {
+      user: {
+        id: 1,
+        name: "Demo User",
+        email: "demo@example.com",
+        role: "admin",
+        avatar: null
+      }
+    };
   },
-  
+
+  // Mock logout function
   logout: async () => {
-    const response = await api.post(ENDPOINTS.LOGOUT);
-    return response.data;
+    console.log("Mock logout called");
+    return true;
   },
-  
+
+  // Mock getCurrentUser function
   getCurrentUser: async () => {
-    const response = await api.get(ENDPOINTS.GET_USER);
-    return response.data;
-  },
+    console.log("Mock getCurrentUser called");
+    // Return null to simulate no active user session
+    return null;
+  }
 };
+
+export { authService };
